@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://textures/player32.png" type="Texture" id=1]
+[ext_resource path="res://prefabs/PlayerAttack.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/HUD.gd" type="Script" id=4]
+[ext_resource path="res://scripts/AttacksSpawner.gd" type="Script" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[node name="Level" type="Node2D"]
+
+[node name="Player" type="Sprite" parent="."]
+position = Vector2( 144, 485 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 1 )
+
+[node name="HUD" type="Node2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="LeftBorder" type="StaticBody2D" parent="HUD" groups=["border"]]
+position = Vector2( 50, 700 )
+
+[node name="Collision" type="CollisionShape2D" parent="HUD/LeftBorder"]
+shape = SubResource( 1 )
+
+[node name="RightBorder" type="StaticBody2D" parent="HUD" groups=["border"]]
+position = Vector2( 550, 700 )
+
+[node name="Collision" type="CollisionShape2D" parent="HUD/RightBorder"]
+shape = SubResource( 1 )
+
+[node name="AttacksSpawner" type="Node2D" parent="HUD"]
+script = ExtResource( 5 )
+
+[node name="Timer" type="Timer" parent="HUD/AttacksSpawner"]
+
+[node name="Attacks" type="Node2D" parent="HUD/AttacksSpawner"]
+
+[node name="PlayerAttack" parent="HUD" instance=ExtResource( 2 )]
+position = Vector2( 80, 700 )
+
+[connection signal="timeout" from="HUD/AttacksSpawner/Timer" to="HUD/AttacksSpawner" method="_on_Timer_timeout"]
