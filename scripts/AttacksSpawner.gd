@@ -18,7 +18,7 @@ func spawn_attack():
 	var random = RandomNumberGenerator.new()
 	random.randomize()
 	
-	attack.position.y = 700
-	attack.position.x = randi() % 460 + 80
+	attack.position.y = 450
+	attack.position.x = randi() % 300 + 40
 
 	$Attacks.add_child(attack)
